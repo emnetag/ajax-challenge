@@ -24,29 +24,32 @@
             </section>
 
             <section class="comments">
-                <br/>
-                <h2>Comments</h2>
-                <img src="img/ajax-spinner.gif" alt="ajax animation" ng-if="loading"/>
-                <div class="no-comments" ng-if="isEmpty">
-                    <p>There are no comments yet! Be the first to review this.</p>
-                </div>
+                <div class="row">
+                    <br/>
+                    <h2>Comments</h2>
 
-                <div ng-repeat="comment in comments" id="comment">
-                    <p id="comment-title">{{comment.title}}</p>
-                    {{comment.votes || 0}}
-                    <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementVotes(comment, 1)"></span>
-                    <span class="glyphicon glyphicon-thumbs-down" ng-click="incrementVotes(comment, -1)"></span>
-                    <div class="comment-info">
-                        <p id="comment-name">{{comment.firstName + ' ' + comment.lastName}}</p>
-                        Rating: <rating max="5" ng-model="comment.rating" readonly="true"></rating><br>
-                        <p id="comment-body">{{comment.body}}</p>
+                    <img src="img/ajax-spinner.gif" alt="ajax animation" ng-if="loading"/>
+                    <div class="no-comments" ng-if="isEmpty">
+                        <p>There are no comments yet! Be the first to review this.</p>
                     </div>
 
-                    <button class="btn btn-primary btn-xs" ng-disabled="inserting" ng-click="deleteComment(comment)">
-                        Delete Comment
-                    </button>
+                    <div ng-repeat="comment in comments" id="comment" class="col-md-4">
+                        <p id="comment-title">{{comment.title}}</p>
+                        {{comment.votes || 0}}
+                        <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementVotes(comment, 1)"></span>
+                        <span class="glyphicon glyphicon-thumbs-down" ng-click="incrementVotes(comment, -1)"></span>
+                        <div class="comment-info">
+                            <p id="comment-name">{{comment.firstName + ' ' + comment.lastName}}</p>
+                            Rating: <rating max="5" ng-model="comment.rating" readonly="true"></rating><br>
+                            <p id="comment-body">{{comment.body}}</p>
+                        </div>
 
-                    <hr width="80%"/>
+                        <button class="btn btn-primary btn-xs" ng-disabled="inserting" ng-click="deleteComment(comment)">
+                            Delete Comment
+                        </button>
+
+                        <hr width="80%"/>
+                    </div>
                 </div>
 
                 <button class="btn btn-default btn-md" ng-disabled="inserting" ng-click="refreshComments()">Refresh Comments</button>
@@ -56,28 +59,28 @@
                 <br>
                 <h2>Add a Comment</h2>
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="comment-form">
                     <div class="form-group">
                         <label for="firstName" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-5">
-                            <input type="text" id="firstName" class="form-control" placeholder="Your first name" ng-model="newComments.firstName">
+                            <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Your first name" ng-model="newComments.firstName">
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" id="lasName" class="form-control" placeholder="Your last name" ng-model="newComments.lastName"/>
+                            <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Your last name" ng-model="newComments.lastName"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="comment-title" class="col-sm-2 control-label">Title</label>
                         <div class="col-sm-5">
-                            <input type="text" id="comment-title" class="form-control" placeholder="Title" ng-model="newComments.title">
+                            <input type="text" name="title" id="comment-title" class="form-control" placeholder="Title" ng-model="newComments.title">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="comment-rating" class="col-sm-2 control-label">Product Rating</label>
                         <div class="col-sm-5">
-                            <rating max="5" id="comment-rating" ng-model="newComments.rating"></rating>
+                            <rating max="5" name="rating" id="comment-rating" ng-model="newComments.rating"></rating>
                         </div>
                     </div>
 

@@ -4,6 +4,32 @@
     define your module and controllers here
 */
 
+var commentForm = document.getElementById("comment-form");
+
+function validateForm(form) {
+    var requiredFields = ['firstName', 'lastName', 'title'];
+    var formValid = true;
+
+    for (var idx = 0; idx < requiredFields.length; ++idx) {
+        var field = requiredFields[idx];
+        formValid &= validateRequiredField(form.elements[field]);
+    }
+    return formValid;
+}
+
+function validateRequiredField(field) {
+    var value = field.value.trim();
+    var valid = value.length > 0;
+
+    if (valid) {
+        field.className = 'form-control';
+    }
+    else {
+        field.className = 'form-control invalid-field'
+    }
+    return valid;
+}
+
 angular.module('ProductPage', ['ui.bootstrap'])
     .config(function($httpProvider) {
         $httpProvider.defaults.headers.common['X-Parse-Application-Id'] = 'FINnsz83hXki5mrULzzAVFitJmVErfHgXRcJnjsQ';
@@ -44,6 +70,23 @@ angular.module('ProductPage', ['ui.bootstrap'])
         };
 
         $scope.addComments = function() {
+
+            var firstName = $scope.newComments.firstName.trim();
+            var lastName = $scope.newComments.lastName.trim();
+            var title = $scope.newComments.title.trim();
+
+            if (firstName.length == 0) {
+                var fNameField = document.getElementById('firstName');
+                fNameField.className('form-control invalid-field')
+            }
+
+            if (lastName.length == 0) {
+                var lNameField = document.getElementById('lastName');
+                lNameField.className('form-control invalid-field');
+            }
+
+            if (title.length == 0)
+
             $scope.inserting = true;
 
             $http.post(commentsUrl, $scope.newComments)
